@@ -86,27 +86,7 @@ public class MainActivity extends AppCompatActivity {
                 .show();
     }
 
-    private void validateForm() {
-        EditText editTextNom = findViewById(R.id.editTextNom);
-        EditText editTextPrenom = findViewById(R.id.editTextPrenom);
-        EditText editTextAge = findViewById(R.id.editTextAge);
-        EditText editTextDomaine = findViewById(R.id.editTextDomaine);
-        EditText editTextTelephone = findViewById(R.id.editTextTelephone);
 
-        String nom = editTextNom.getText().toString();
-        String prenom = editTextPrenom.getText().toString();
-        String age = editTextAge.getText().toString();
-        String domaine = editTextDomaine.getText().toString();
-        String telephone = editTextTelephone.getText().toString();
-
-        String message = getString(R.string.nom) + ": " + nom + "\n" +
-                getString(R.string.prenom) + ": " + prenom + "\n" +
-                getString(R.string.age) + ": " + age + "\n" +
-                getString(R.string.domaine) + ": " + domaine + "\n" +
-                getString(R.string.telephone) + ": " + telephone;
-
-        Toast.makeText(this, message, Toast.LENGTH_LONG).show();
-    }
 
     private void changeEditTextBackground() {
         EditText editTextNom = findViewById(R.id.editTextNom);
@@ -161,5 +141,27 @@ public class MainActivity extends AppCompatActivity {
     private int getRandomColor() {
         Random random = new Random();
         return Color.rgb(random.nextInt(256), random.nextInt(256), random.nextInt(256));
+    }
+    private void validateForm() {
+        EditText editTextNom = findViewById(R.id.editTextNom);
+        EditText editTextPrenom = findViewById(R.id.editTextPrenom);
+        EditText editTextAge = findViewById(R.id.editTextAge);
+        EditText editTextDomaine = findViewById(R.id.editTextDomaine);
+        EditText editTextTelephone = findViewById(R.id.editTextTelephone);
+
+        String nom = editTextNom.getText().toString();
+        String prenom = editTextPrenom.getText().toString();
+        String age = editTextAge.getText().toString();
+        String domaine = editTextDomaine.getText().toString();
+        String telephone = editTextTelephone.getText().toString();
+
+        // Create an Intent to launch DisplayActivity
+        Intent intent = new Intent(MainActivity.this, DisplayActivity.class);
+        intent.putExtra("NOM", nom);
+        intent.putExtra("PRENOM", prenom);
+        intent.putExtra("AGE", age);
+        intent.putExtra("DOMAINE", domaine);
+        intent.putExtra("TELEPHONE", telephone);
+        startActivity(intent);
     }
 }
