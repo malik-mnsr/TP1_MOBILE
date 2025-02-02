@@ -4,7 +4,7 @@ plugins {
 
 android {
     namespace 'com.HAI811I.tp1_web'
-    compileSdk 34
+    compileSdk 35
 
     defaultConfig {
         applicationId "com.HAI811I.tp1_web"
