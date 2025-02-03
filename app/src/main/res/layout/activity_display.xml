@@ -17,12 +17,12 @@
         android:id="@+id/buttonOk"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:text="OK"
+        android:text="@string/OK"
         android:layout_marginBottom="16dp"/>
 
     <Button
         android:id="@+id/buttonRetour"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:text="Retour"/>
+        android:text="@string/retour"/>
 </LinearLayout>

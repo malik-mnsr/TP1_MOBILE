@@ -16,4 +16,7 @@
     <string name="yes">نعم</string>
     <string name="no">لا</string>
     <string name="change_color">تغيير اللون</string>
+    <string name="OK">تأكيد</string>
+    <string name="retour">عودة</string>
+    <string name="call">إتصال</string>
 </resources>

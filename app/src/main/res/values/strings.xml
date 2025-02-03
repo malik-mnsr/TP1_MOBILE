@@ -16,4 +16,7 @@
     <string name="yes">Oui</string>
     <string name="no">Non</string>
     <string name="change_color">Changer la couleur</string>
+    <string name="OK">OK</string>
+    <string name="retour">Retour</string>
+    <string name="call">Appeller</string>
 </resources>
