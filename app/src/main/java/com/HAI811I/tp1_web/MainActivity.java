@@ -71,21 +71,20 @@ public class MainActivity extends AppCompatActivity {
             }
         });
 
-        // Handle form validation with a confirmation dialog
+
         Button buttonValider = findViewById(R.id.buttonValider);
         buttonValider.setOnClickListener(view -> showConfirmationDialog());
     }
 
     private void showConfirmationDialog() {
         AlertDialog.Builder builder = new AlertDialog.Builder(this);
-        builder.setTitle(getString(R.string.confirmation_title)) // "Confirm Validation"
-                .setMessage(getString(R.string.confirmation_message)) // "Are you sure you want to validate?"
-                .setPositiveButton(getString(R.string.yes), (dialog, which) -> validateForm()) // Validate
-                .setNegativeButton(getString(R.string.no), (dialog, which) -> dialog.dismiss()) // Cancel
-                .setNeutralButton(getString(R.string.change_color), (dialog, which) -> changeEditTextBackground()) // Change background color
+        builder.setTitle(getString(R.string.confirmation_title))
+                .setMessage(getString(R.string.confirmation_message))
+                .setPositiveButton(getString(R.string.yes), (dialog, which) -> validateForm())
+                .setNegativeButton(getString(R.string.no), (dialog, which) -> dialog.dismiss())
+                .setNeutralButton(getString(R.string.change_color), (dialog, which) -> changeEditTextBackground())
                 .show();
     }
-
 
 
     private void changeEditTextBackground() {
@@ -138,10 +137,12 @@ public class MainActivity extends AppCompatActivity {
         config.setLocale(locale);
         resources.updateConfiguration(config, dm);
     }
+
     private int getRandomColor() {
         Random random = new Random();
         return Color.rgb(random.nextInt(256), random.nextInt(256), random.nextInt(256));
     }
+
     private void validateForm() {
         EditText editTextNom = findViewById(R.id.editTextNom);
         EditText editTextPrenom = findViewById(R.id.editTextPrenom);
@@ -155,13 +156,19 @@ public class MainActivity extends AppCompatActivity {
         String domaine = editTextDomaine.getText().toString();
         String telephone = editTextTelephone.getText().toString();
 
-        // Create an Intent to launch DisplayActivity
-        Intent intent = new Intent(MainActivity.this, DisplayActivity.class);
-        intent.putExtra("NOM", nom);
-        intent.putExtra("PRENOM", prenom);
-        intent.putExtra("AGE", age);
-        intent.putExtra("DOMAINE", domaine);
-        intent.putExtra("TELEPHONE", telephone);
-        startActivity(intent);
+        // Check if any field is empty
+        if (nom.isEmpty() || prenom.isEmpty() || age.isEmpty() || domaine.isEmpty() || telephone.isEmpty()) {
+            // Show a toast message to inform the user to fill all fields
+            Toast.makeText(this, getString(R.string.all_fields_required), Toast.LENGTH_SHORT).show();
+        } else {
+            // Proceed to the next activity if all fields are filled
+            Intent intent = new Intent(MainActivity.this, DisplayActivity.class);
+            intent.putExtra("NOM", nom);
+            intent.putExtra("PRENOM", prenom);
+            intent.putExtra("AGE", age);
+            intent.putExtra("DOMAINE", domaine);
+            intent.putExtra("TELEPHONE", telephone);
+            startActivity(intent);
+        }
     }
 }

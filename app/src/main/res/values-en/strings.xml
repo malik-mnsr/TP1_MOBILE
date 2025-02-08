@@ -19,5 +19,7 @@
     <string name="OK">OK</string>
     <string name="retour">Back</string>
     <string name="call">Call</string>
+    <string name="all_fields_required">Please fill all fields!</string>
+
 </resources>
 
