@@ -20,4 +20,6 @@
     <string name="retour">Retour</string>
     <string name="call">Appeller</string>
     <string name="all_fields_required">Veuillez remplir tous les champs !</string>
+    <string name="flag">Drapeau</string>
+
 </resources>

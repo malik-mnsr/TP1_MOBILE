@@ -14,11 +14,20 @@ import android.widget.Button;
 import android.widget.EditText;
 import android.widget.Spinner;
 import android.widget.Toast;
-import android.graphics.Color;
-import java.util.Random;
+
 import androidx.appcompat.app.AppCompatActivity;
 
+import java.util.Arrays;
+import java.util.List;
 import java.util.Locale;
+import java.util.Random;
+import android.os.Bundle;
+import android.widget.Spinner;
+
+import androidx.appcompat.app.AppCompatActivity;
+
+import java.util.Arrays;
+import java.util.List;
 
 public class MainActivity extends AppCompatActivity {
 
@@ -26,16 +35,28 @@ public class MainActivity extends AppCompatActivity {
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
-        // Load the saved language BEFORE setting the content view
+        // Load the saved language before setting the content view.
         loadLocale();
 
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
 
-        // Initialize language selector
+        // Initialize Spinner
         spinnerLangue = findViewById(R.id.spinnerLangue);
 
-        // Restore the Spinner selection based on the saved language
+        // Define languages and their flags
+        List<String> languages = Arrays.asList(getResources().getStringArray(R.array.langues));
+        int[] flagImages = {
+                R.drawable.ic_flag_fr,  // French flag
+                R.drawable.ic_flag_en,  // English flag
+                R.drawable.ic_flag_ar   // Arabic flag
+        };
+
+        // Set up the custom adapter for the spinner
+        LanguageAdapter adapter = new LanguageAdapter(this, languages, flagImages);
+        spinnerLangue.setAdapter(adapter);
+
+        // Restore the spinner selection based on the saved language
         SharedPreferences prefs = getSharedPreferences("Settings", MODE_PRIVATE);
         String currentLang = prefs.getString("Lang", "ar");
         switch (currentLang) {
@@ -50,31 +71,34 @@ public class MainActivity extends AppCompatActivity {
                 break;
         }
 
+        // Set an item selected listener for the spinner
         spinnerLangue.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
             @Override
             public void onItemSelected(AdapterView<?> parent, View view, int position, long id) {
                 switch (position) {
                     case 0:
-                        setLocale("fr"); // French
+                        setLocale("fr"); // Switch to French
                         break;
                     case 1:
-                        setLocale("en"); // English
+                        setLocale("en"); // Switch to English
                         break;
                     case 2:
-                        setLocale("ar"); // Arabic
+                        setLocale("ar"); // Switch to Arabic
                         break;
                 }
             }
 
             @Override
             public void onNothingSelected(AdapterView<?> parent) {
+                // Do nothing
             }
         });
 
-
+        // Button listener for form validation
         Button buttonValider = findViewById(R.id.buttonValider);
         buttonValider.setOnClickListener(view -> showConfirmationDialog());
     }
+
 
     private void showConfirmationDialog() {
         AlertDialog.Builder builder = new AlertDialog.Builder(this);
@@ -86,7 +110,6 @@ public class MainActivity extends AppCompatActivity {
                 .show();
     }
 
-
     private void changeEditTextBackground() {
         EditText editTextNom = findViewById(R.id.editTextNom);
         EditText editTextPrenom = findViewById(R.id.editTextPrenom);
@@ -94,7 +117,7 @@ public class MainActivity extends AppCompatActivity {
         EditText editTextDomaine = findViewById(R.id.editTextDomaine);
         EditText editTextTelephone = findViewById(R.id.editTextTelephone);
 
-        // Change background colors to random colors
+
         editTextNom.setBackgroundColor(getRandomColor());
         editTextPrenom.setBackgroundColor(getRandomColor());
         editTextAge.setBackgroundColor(getRandomColor());
@@ -150,18 +173,55 @@ public class MainActivity extends AppCompatActivity {
         EditText editTextDomaine = findViewById(R.id.editTextDomaine);
         EditText editTextTelephone = findViewById(R.id.editTextTelephone);
 
-        String nom = editTextNom.getText().toString();
-        String prenom = editTextPrenom.getText().toString();
-        String age = editTextAge.getText().toString();
-        String domaine = editTextDomaine.getText().toString();
-        String telephone = editTextTelephone.getText().toString();
+        String nom = editTextNom.getText().toString().trim();
+        String prenom = editTextPrenom.getText().toString().trim();
+        String age = editTextAge.getText().toString().trim();
+        String domaine = editTextDomaine.getText().toString().trim();
+        String telephone = editTextTelephone.getText().toString().trim();
 
-        // Check if any field is empty
-        if (nom.isEmpty() || prenom.isEmpty() || age.isEmpty() || domaine.isEmpty() || telephone.isEmpty()) {
-            // Show a toast message to inform the user to fill all fields
+        boolean hasError = false;
+
+
+        if (nom.isEmpty()) {
+            editTextNom.setBackgroundResource(R.drawable.edittext_error_background);
+            hasError = true;
+        } else {
+            editTextNom.setBackgroundResource(R.drawable.edittext_background);
+        }
+
+        if (prenom.isEmpty()) {
+            editTextPrenom.setBackgroundResource(R.drawable.edittext_error_background);
+            hasError = true;
+        } else {
+            editTextPrenom.setBackgroundResource(R.drawable.edittext_background);
+        }
+
+        if (age.isEmpty()) {
+            editTextAge.setBackgroundResource(R.drawable.edittext_error_background);
+            hasError = true;
+        } else {
+            editTextAge.setBackgroundResource(R.drawable.edittext_background);
+        }
+
+        if (domaine.isEmpty()) {
+            editTextDomaine.setBackgroundResource(R.drawable.edittext_error_background);
+            hasError = true;
+        } else {
+            editTextDomaine.setBackgroundResource(R.drawable.edittext_background);
+        }
+
+        if (telephone.isEmpty()) {
+            editTextTelephone.setBackgroundResource(R.drawable.edittext_error_background);
+            hasError = true;
+        } else {
+            editTextTelephone.setBackgroundResource(R.drawable.edittext_background);
+        }
+
+
+        if (hasError) {
             Toast.makeText(this, getString(R.string.all_fields_required), Toast.LENGTH_SHORT).show();
         } else {
-            // Proceed to the next activity if all fields are filled
+
             Intent intent = new Intent(MainActivity.this, DisplayActivity.class);
             intent.putExtra("NOM", nom);
             intent.putExtra("PRENOM", prenom);

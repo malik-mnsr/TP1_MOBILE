@@ -20,4 +20,6 @@
     <string name="retour">عودة</string>
     <string name="call">إتصال</string>
     <string name="all_fields_required">من فضلك إملأ كل شيء !</string>
+    <string name="flag">علم</string>
+
 </resources>

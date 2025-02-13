@@ -4,6 +4,7 @@
     android:layout_height="match_parent"
     android:orientation="vertical"
     android:gravity="center"
+    android:background="@drawable/ic_back"
     android:padding="16dp">
 
     <!-- Phone Image -->
@@ -11,8 +12,8 @@
         android:id="@+id/imageViewPhone"
         android:layout_width="100dp"
         android:layout_height="100dp"
-        android:src="@drawable/ic_phone"
-        android:layout_marginBottom="24dp"/>
+        android:src="@drawable/mobile"
+        android:layout_marginBottom="24dp" />
 
     <!-- Phone Number -->
     <TextView
@@ -21,7 +22,8 @@
         android:layout_height="wrap_content"
         android:textSize="18sp"
         android:text="Numéro de téléphone"
-        android:layout_marginBottom="24dp"/>
+        android:textColor="@color/white"
+        android:layout_marginBottom="24dp" />
 
     <!-- Call Button -->
     <Button
@@ -30,5 +32,15 @@
         android:layout_height="wrap_content"
         android:text="@string/call"
         android:backgroundTint="@color/purple_500"
-        android:textColor="@color/white"/>
+        android:textColor="@color/white"
+        android:layout_marginBottom="16dp" />
+
+    <!-- Return to MainActivity Button -->
+    <Button
+        android:id="@+id/buttonRetour"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="@string/retour"
+        android:backgroundTint="@color/P2"
+        android:textColor="@color/white" />
 </LinearLayout>

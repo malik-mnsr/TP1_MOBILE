@@ -14,21 +14,30 @@ public class ThirdActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_third);
 
-        // Get the phone number from the Intent
+        // Récupérer le numéro de téléphone depuis l'intent
         Intent intent = getIntent();
         String phoneNumber = intent.getStringExtra("TELEPHONE");
 
-        // Display the phone number
+        // Afficher le numéro de téléphone
         TextView textViewPhoneNumber = findViewById(R.id.textViewPhoneNumber);
         textViewPhoneNumber.setText(phoneNumber);
 
-        // Handle the "Appeler" button
+        // Gérer le bouton d'appel
         Button buttonAppeler = findViewById(R.id.buttonAppeler);
         buttonAppeler.setOnClickListener(v -> {
-            // Create an Intent to launch the phone dialer
+            // Créer un intent pour lancer l'application de téléphone
             Intent callIntent = new Intent(Intent.ACTION_DIAL);
             callIntent.setData(Uri.parse("tel:" + phoneNumber));
             startActivity(callIntent);
+        });
+
+        // Gérer le bouton de retour à MainActivity
+        Button buttonRetour = findViewById(R.id.buttonRetour);
+        buttonRetour.setOnClickListener(v -> {
+            // Créer un intent pour passer à MainActivity
+            Intent mainActivityIntent = new Intent(ThirdActivity.this, MainActivity.class);
+            startActivity(mainActivityIntent);
+            finish(); // Facultatif : ferme l'activité actuelle pour éviter de revenir dessus
         });
     }
 }

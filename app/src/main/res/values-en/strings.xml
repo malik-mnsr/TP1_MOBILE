@@ -20,6 +20,7 @@
     <string name="retour">Back</string>
     <string name="call">Call</string>
     <string name="all_fields_required">Please fill all fields!</string>
+    <string name="flag">Flag</string>
 
 </resources>
 
