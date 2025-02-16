@@ -18,7 +18,7 @@ public class DisplayActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_display);
 
-        // Get data from the Intent
+
         Intent intent = getIntent();
         String nom = intent.getStringExtra("NOM");
         String prenom = intent.getStringExtra("PRENOM");
@@ -26,10 +26,10 @@ public class DisplayActivity extends AppCompatActivity {
         String domaine = intent.getStringExtra("DOMAINE");
         String telephone = intent.getStringExtra("TELEPHONE");
 
-        // Create a TextView for displaying the formatted data
+
         TextView textViewData = findViewById(R.id.textViewData);
 
-        // Build the string and bold the user-typed parts
+
         SpannableString data = new SpannableString(
                 getString(R.string.nom) + ": " + nom + "\n" +
                         getString(R.string.prenom) + ": " + prenom + "\n" +
@@ -38,11 +38,11 @@ public class DisplayActivity extends AppCompatActivity {
                         getString(R.string.telephone) + ": " + telephone
         );
 
-        // Apply bold style to user-typed data (e.g., nom)
-        int nomStart = getString(R.string.nom).length() + 2; // "+ 2" accounts for ": "
+
+        int nomStart = getString(R.string.nom).length() + 2;
         data.setSpan(new StyleSpan(Typeface.BOLD), nomStart, nomStart + nom.length(), Spanned.SPAN_EXCLUSIVE_EXCLUSIVE);
 
-        int prenomStart = nomStart + nom.length() + getString(R.string.prenom).length() + 3; // "+ 3" accounts for "\n"
+        int prenomStart = nomStart + nom.length() + getString(R.string.prenom).length() + 3;
         data.setSpan(new StyleSpan(Typeface.BOLD), prenomStart, prenomStart + prenom.length(), Spanned.SPAN_EXCLUSIVE_EXCLUSIVE);
 
         int ageStart = prenomStart + prenom.length() + getString(R.string.age).length() + 3;
@@ -54,18 +54,17 @@ public class DisplayActivity extends AppCompatActivity {
         int telephoneStart = domaineStart + domaine.length() + getString(R.string.telephone).length() + 3;
         data.setSpan(new StyleSpan(Typeface.BOLD), telephoneStart, telephoneStart + telephone.length(), Spanned.SPAN_EXCLUSIVE_EXCLUSIVE);
 
-        // Set the formatted text
         textViewData.setText(data);
 
-        // Handle OK button to go to ThirdActivity
+
         Button buttonOk = findViewById(R.id.buttonOk);
         buttonOk.setOnClickListener(v -> {
             Intent thirdIntent = new Intent(DisplayActivity.this, ThirdActivity.class);
-            thirdIntent.putExtra("TELEPHONE", telephone); // Pass the phone number
+            thirdIntent.putExtra("TELEPHONE", telephone);
             startActivity(thirdIntent);
         });
 
-        // Handle Retour button to finish the activity
+
         Button buttonRetour = findViewById(R.id.buttonRetour);
         buttonRetour.setOnClickListener(v -> finish());
     }

@@ -35,66 +35,66 @@ public class MainActivity extends AppCompatActivity {
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
-        // Load the saved language before setting the content view.
+
         loadLocale();
 
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
 
-        // Initialize Spinner
+
         spinnerLangue = findViewById(R.id.spinnerLangue);
 
-        // Define languages and their flags
+
         List<String> languages = Arrays.asList(getResources().getStringArray(R.array.langues));
         int[] flagImages = {
-                R.drawable.ic_flag_fr,  // French flag
-                R.drawable.ic_flag_en,  // English flag
-                R.drawable.ic_flag_ar   // Arabic flag
+                R.drawable.ic_flag_fr,
+                R.drawable.ic_flag_en,
+                R.drawable.ic_flag_ar
         };
 
-        // Set up the custom adapter for the spinner
+
         LanguageAdapter adapter = new LanguageAdapter(this, languages, flagImages);
         spinnerLangue.setAdapter(adapter);
 
-        // Restore the spinner selection based on the saved language
+
         SharedPreferences prefs = getSharedPreferences("Settings", MODE_PRIVATE);
         String currentLang = prefs.getString("Lang", "ar");
         switch (currentLang) {
             case "fr":
-                spinnerLangue.setSelection(0); // French
+                spinnerLangue.setSelection(0);
                 break;
             case "en":
-                spinnerLangue.setSelection(1); // English
+                spinnerLangue.setSelection(1);
                 break;
             case "ar":
-                spinnerLangue.setSelection(2); // Arabic
+                spinnerLangue.setSelection(2);
                 break;
         }
 
-        // Set an item selected listener for the spinner
+
         spinnerLangue.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
             @Override
             public void onItemSelected(AdapterView<?> parent, View view, int position, long id) {
                 switch (position) {
                     case 0:
-                        setLocale("fr"); // Switch to French
+                        setLocale("fr");
                         break;
                     case 1:
-                        setLocale("en"); // Switch to English
+                        setLocale("en");
                         break;
                     case 2:
-                        setLocale("ar"); // Switch to Arabic
+                        setLocale("ar");
                         break;
                 }
             }
 
             @Override
             public void onNothingSelected(AdapterView<?> parent) {
-                // Do nothing
+
             }
         });
 
-        // Button listener for form validation
+
         Button buttonValider = findViewById(R.id.buttonValider);
         buttonValider.setOnClickListener(view -> showConfirmationDialog());
     }
